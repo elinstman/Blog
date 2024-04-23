@@ -7,9 +7,6 @@ function App() {
 
   return (
     <>
-     <h1>
-        TEST
-      </h1>
     <Routes >
       <Route path='/' element={<HomePage />}/>
     </Routes>
