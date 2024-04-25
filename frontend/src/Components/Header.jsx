@@ -15,7 +15,7 @@ const Header = () => {
              <Link className="nav-link" to="#">
                 Skapa konto
               </Link>
-              <Link className="nav-link" to="#">
+              <Link className="nav-link" to="/login">
                 Logga in
               </Link>
               </div>
