@@ -6,3 +6,23 @@
   padding: 2rem;
   text-align: center;
 }
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+/* main/Homepage container */
+.main-container {
+  display: grid;
+  grid-template-columns: 23vw auto !important;
+  /* position: absolute; */
+  /* margin-top:  80px; behövs ej med hero section på homepage */
+  padding-bottom: 50px;
+  width: 100%;
+  background-color: #f0f0f0;
+}

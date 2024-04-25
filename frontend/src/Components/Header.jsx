@@ -1,17 +1,21 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
         <>
-        <nav classNameName="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
-          <div classNameName="header-container d-flex align-items-center justify-content-center ">
-            <div classNameName="logo">
-              <Link to="/" classNameName="link">
-                <b>LOGGA</b>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
+          <div className="header-container d-flex align-items-center justify-content-between ">
+            <div className="logo">
+              <Link to="/" className="logga">
+                <b>Elins Blog</b>
               </Link>
             </div>
-             <div>
-              <Link classNameName="nav-link" to="#">
+        
+             <div className="header-nav-container">
+             <Link className="nav-link" to="#">
+                Skapa konto
+              </Link>
+              <Link className="nav-link" to="#">
                 Logga in
               </Link>
               </div>

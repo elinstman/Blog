@@ -1,48 +1,72 @@
 const bcrypt = require("bcrypt");
-const User = require("../models/user.model.js");
-const { generateToken } = require("../utils/token.js");
+
+const User = require("../models/user.model");
+const { registerErrorHandler } = require("../utils/apiHelpers");
+const {
+  generateAccessAndRefreshToken,
+  verifyRefreshToken,
+  generateAccessToken,
+} = require("../utils/token");
 
 async function registerUser(req, res) {
+  const _user = req.body;
   try {
-    const { email, password, firstname, lastname } = req.body;
-    const user = new User({
-      email,
-      password,
-      firstname,
-      lastname,
-    });
-    const newUser = await user.save();
-    const tokens = generateToken(newUser);
-    console.log("User created: ", newUser);
-    console.log("Tokens: ", tokens);
-    res.status(201).json(tokens);
+    const user = await User.create(_user);
+    const token = generateAccessAndRefreshToken(user);
+    res.json(token);
   } catch (error) {
-    res.status(400).json({ error: error.message });
-    console.log("Error creating user: ", error.message);
+    registerErrorHandler(error, res, _user?.email);
   }
 }
 
 async function loginUser(req, res) {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({
+      email,
+    }).select(["+password"]);
+
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      throw new Error("Credentials missing");
     }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
+    const isPasswordTheSame = await bcrypt.compare(password, user.password);
+    if (!isPasswordTheSame) {
+      throw new Error("Credentials missing");
     }
-    const tokens = generateToken(user);
-    console.log("User logged in: ", user);
-    console.log("Tokens: ", tokens);
-    res.status(200).json(tokens);
+    const token = generateAccessAndRefreshToken(user);
+    res.json(token);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({
+      message: error.message,
+    });
+  }
+}
+
+async function refreshAccessToken(req, res) {
+  const { refreshToken } = req.body;
+
+  try {
+    const verifiedToken = verifyRefreshToken(refreshToken);
+    console.log(verifiedToken);
+    const user = await User.findById(verifiedToken?.userId);
+    if (!user) {
+      throw new Error("User not authorized");
+    }
+    const newAccessToken = generateAccessToken(user);
+    res.json({
+      access: newAccessToken,
+      refesh: refreshToken,
+    });
+  } catch (error) {
+    console.warn("Error in verifying 'refresh token'", error.message);
+    res.status(401).json({
+      message: "User not authorized",
+    });
   }
 }
 
 module.exports = {
   registerUser,
   loginUser,
+  refreshAccessToken,
 };

@@ -6,9 +6,15 @@
     color: rgb(65, 33, 33);
   
   }
+
+  .header-nav-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
   
-  .link {
-    color: white;
+  .logga {
+    color: rgb(57, 43, 43);
     text-decoration: none;
   }
   
@@ -25,15 +31,6 @@
     color: lightgrey;
   }
   
-  
-  .search-form {
-    display: flex;
-    gap: 1rem;
-    flex: 1;
-    width: 500px;
-  
-  
-  }
   
   .list-group-item {
     cursor: pointer;

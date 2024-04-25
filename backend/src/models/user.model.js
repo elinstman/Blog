@@ -7,22 +7,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      mathc: /^[^@]+@[^@]+\.[^@]+$/,
+      match: /^[^@]+@[^@]+\.[^@]+$/,
     },
-    password: {
-      type: String,
-      required: true,
-      minlength: 8,
-      select: false,
-    },
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
+    password: { type: String, required: true, minLength: 8, select: false },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
   },
   {
     timestamps: true,
