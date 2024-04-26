@@ -1,15 +1,18 @@
 import Header from '../Components/Header';
+import BlogPosts from '../Components/BlogPost';
+import Navbar from '../Components/Navbar';
 
 
 const HomePage = () => {
     return (
-        <div>
+        <>
             <Header />
-            <div>
-            <h1>HOMEPAGE</h1> 
-            </div>
+            <main className='row g-5'>
+            <BlogPosts />
+            <Navbar />
+            </main>
             
-        </div>
+        </>
     )
 }
 

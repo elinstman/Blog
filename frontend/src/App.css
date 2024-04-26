@@ -1,5 +1,6 @@
 @import url("Styles/header.css");
 @import url("Styles/loginPage.css");
+@import url("Styles/blogpost.css");
 
 #root {
   max-width: 1280px;
