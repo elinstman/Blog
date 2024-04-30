@@ -1,7 +1,7 @@
 const Navbar = () => {
     return (
-        <>
-        <div className="col-md-4">
+        <div className="col-md-4 p-3">
+        <div className="position-sticky" >
             <div>
           <h4 className="fst-italic">Recent posts</h4>
           <ul className="list-unstyled">
@@ -35,7 +35,7 @@ const Navbar = () => {
           </ul>
         </div>
         </div>
-        </>
+        </div>
     )
 }
 

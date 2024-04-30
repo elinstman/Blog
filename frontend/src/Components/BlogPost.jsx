@@ -13,6 +13,7 @@ const BlogPosts = () => {
             </div>
             
         </div>
+    
         </>
     )
 }
