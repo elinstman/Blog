@@ -2,8 +2,8 @@ const User = require("../models/user.model");
 
 async function createUser(req, res) {
   try {
-    const { userName, password } = req.body;
-    if (!userName || !password) {
+    const { userName, passWord } = req.body;
+    if (!userName || !passWord) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 

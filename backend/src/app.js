@@ -1,6 +1,7 @@
 const Express = require("express");
 const cors = require("cors");
 const { urlencoded } = require("express");
+const userRouter = require("../src/routes/user.route");
 
 const app = Express();
 
@@ -19,10 +20,7 @@ app.use(
   })
 );
 
-app.post("/register", (req, res) => {
-  const { userName, passWord } = req.body;
-  res.json({ requestData: { userName, passWord } });
-});
+app.use(userRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const databaseURI = process.env.MONGOOSE_LIVE_URI;
+// const databaseURI = process.env.DATABASE_PATH;
 
 function connectToMongoose() {
   mongoose
