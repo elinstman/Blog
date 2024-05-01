@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 async function createUser(req, res) {
   try {
@@ -7,9 +8,11 @@ async function createUser(req, res) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    const hashedPassword = await bcrypt.hash(passWord, 10);
+
     const newUser = new User({
       userName: userName,
-      passWord: passWord,
+      passWord: hashedPassword,
     });
     console.log("newUser: ", newUser);
     const savedUser = new User(newUser);

@@ -7,12 +7,18 @@ const RegisterUser = () => {
     async function registerUser(ev) {
         ev.preventDefault();
 
-         await fetch('http://localhost:8000/register', {
+         const response = await fetch('http://localhost:8000/register', {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },
         });
-
+if(response.status === 201) {
+    alert('Registration Successfull')
+        setUserName('')
+        setPassWord('')
+} else {
+    alert('Registration Failed')
+}
     }
 
     return (
