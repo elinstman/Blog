@@ -12,10 +12,10 @@ const Header = () => {
             </div>
         
              <div className="header-nav-container">
-             <Link className="nav-link" to="#">
+             <Link className="nav-link" to="/register">
                 Skapa konto
               </Link>
-              <Link className="nav-link" to="#">
+              <Link className="nav-link" to="/login">
                 Logga in
               </Link>
               </div>
