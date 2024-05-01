@@ -9,8 +9,7 @@ async function createUser(req, res) {
 
     const newUser = new User({
       userName: userName,
-      passWord: password,
-      isAdmin: isAdmin || false,
+      passWord: passWord,
     });
     console.log("newUser: ", newUser);
     const savedUser = new User(newUser);
