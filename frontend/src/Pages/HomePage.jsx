@@ -7,9 +7,14 @@ const HomePage = () => {
     return (
         <>
             <Header />
-            <main className='row g-5'>
-            <BlogPosts />
+            <main className='row g-5 main-container'>
+                <div className='col-md-8'>
+                <BlogPosts />
+                </div>
+            <div className='col-md-4'> 
             <Navbar />
+            </div>
+            
             </main>
             
         </>
