@@ -10,6 +10,8 @@ const HomePage = () => {
             <main className='row g-5 main-container'>
                 <div className='col-md-8'>
                 <BlogPosts />
+                <BlogPosts />
+                <BlogPosts />
                 </div>
             <div className='col-md-4'> 
             <Navbar />

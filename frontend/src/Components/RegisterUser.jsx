@@ -2,7 +2,7 @@ const RegisterUser = () => {
 
     return (
         <form>
-        <h2>Skapa konto</h2>
+        <h2>Skapa ett konto här!</h2>
         <div className="login-div"> 
         <div className="form-floating">
             <input type="email" id="loginEmail" className="form-control"/>
@@ -14,7 +14,7 @@ const RegisterUser = () => {
             <label htmlFor="loginPassword">Lösenord</label>
         </div>
         <div className="button-login-container"> 
-        <button class="btn w-100 py-2 button-login" type="submit">Logga in</button>
+        <button class="btn w-100 py-2 button-login" type="submit">Registrera</button>
         </div>
         </div>
 
