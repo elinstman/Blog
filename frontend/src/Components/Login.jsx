@@ -5,12 +5,18 @@ const UserLogin = () => {
         <h2>Välkommen tillbaka!</h2>
         <div className="login-div"> 
         <div className="form-floating">
-            <input type="email" id="loginEmail" className="form-control"/>
-            <label htmlFor="loginEmail">Mailadress</label>
+            <input 
+            type="text" 
+            id="userName" 
+            className="form-control"/>
+            <label htmlFor="userName">Användarnamn</label>
         </div>
 
         <div className="form-floating">
-        <input type="password" id="loginPassword" className="form-control"/>
+        <input 
+        type="password" 
+        id="loginPassword" 
+        className="form-control"/>
             <label htmlFor="loginPassword">Lösenord</label>
         </div>
         <div className="button-login-container"> 
