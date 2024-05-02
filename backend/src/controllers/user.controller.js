@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const {
   generateAccessAndRefreshToken,
   verifyAccessToken,
+  verifyRefreshToken,
 } = require("../utils/token");
 
 async function createUser(req, res) {
@@ -32,7 +33,7 @@ async function createUser(req, res) {
 async function loginUser(req, res) {
   const { userName, passWord } = req.body;
   try {
-    const user = await User.findOne({ userName }).select(["+passWord"]);
+    const user = await User.findOne({ userName }).select("+passWord");
 
     if (!user) {
       return res.status(401).json({ message: "Wrong användarnamn" });
@@ -46,11 +47,36 @@ async function loginUser(req, res) {
     const token = generateAccessAndRefreshToken(user);
     res.json(token);
   } catch (error) {
+    console.log("Error in loginUser ", error);
     res.status(404).json({ message: error.message });
   }
 }
 
+// async function refreshAcessToken(req, res) {
+//   const { refreshToken } = req.body;
+
+//   try {
+//     const verifiedToken = verifyRefreshToken(refreshToken);
+//     console.log(verifiedToken);
+//     const user = await User.findOne(verifiedToken.userId);
+//     if (!user) {
+//       throw new Error("User not authorized");
+//     }
+//     const newAccessToken = generateAccessToken(user);
+//     res.json({
+//       access: newAccessToken,
+//       refresh: refreshToken,
+//     });
+//   } catch (error) {
+//     console.warn("Error in verifying 'Refresh token'", error.message);
+//     res.status(401).json({
+//       message: "User not authorized",
+//     });
+//   }
+// }
+
 module.exports = {
   createUser,
   loginUser,
+  // refreshAcessToken,
 };

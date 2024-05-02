@@ -13,11 +13,11 @@ const RegisterUser = () => {
             headers: { 'Content-Type': 'application/json' },
         });
 if(response.status === 201) {
-    alert('Registration Successfull')
+    alert('Registrering lyckades!')
         setUserName('')
         setPassWord('')
 } else {
-    alert('Registration Failed')
+    alert('Registrering misslyckades.')
 }
     }
 

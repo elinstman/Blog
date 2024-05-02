@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Header = () => {
+
+
     return (
         <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
