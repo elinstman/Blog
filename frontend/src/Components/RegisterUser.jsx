@@ -46,7 +46,7 @@ if(response.status === 201) {
         </div>
         <div className="button-login-container"> 
         <button 
-        class="btn w-100 py-2 button-login" 
+        className="btn w-100 py-2 button-login" 
         type="submit">
             Registrera</button>
         </div>

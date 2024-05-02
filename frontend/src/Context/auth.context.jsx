@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 
 const VerifiedLoginContext = React.createContext();
 const UserNameContext = React.createContext();
+const handleLogoutContext =React.createContext();
 
 export function useVerifiedLogin() {
     return useContext(VerifiedLoginContext)
@@ -9,6 +10,10 @@ export function useVerifiedLogin() {
 
 export function useUserName() {
     return useContext(UserNameContext)
+}
+
+export function useHandleLogout() {
+    return useContext(handleLogoutContext)
 }
 
 
@@ -20,6 +25,21 @@ export function AuthProvider({ children }) {
         checkVerified();
 
     },[]);
+
+    useEffect(() => {
+        if (!isVerified) {
+            setUserName("");
+        }
+    }, [isVerified]);
+
+    
+    useEffect(() => {
+        // Återställ inloggningstillståndet när komponenten avmonteras
+        return () => {
+            setIsVerified(false);
+        };
+    }, []);
+
 
 
     const checkVerified = async () => {
@@ -33,7 +53,7 @@ export function AuthProvider({ children }) {
                     const inloggedUser = responseData[0];
                     if (inloggedUser.userName) {
                         setUserName(inloggedUser.userName);
-                        console.log("user name:", inloggedUser.userName);
+                        // console.log("user name:", inloggedUser.userName);
                     }
                 } else {
                     setUserName(""); 
@@ -49,11 +69,17 @@ export function AuthProvider({ children }) {
         }
     }
 
+    const handleLogout = () => {
+        setIsVerified(false);
+      };
+
     return (
         <VerifiedLoginContext.Provider  value={isVerified }>
             <UserNameContext.Provider value={userName}>
+                <handleLogoutContext.Provider value={handleLogout} >
     
-            {children}
+                 {children}
+                </handleLogoutContext.Provider>
             </UserNameContext.Provider>
         </VerifiedLoginContext.Provider>
     )

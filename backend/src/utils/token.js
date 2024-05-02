@@ -7,7 +7,7 @@ function generateAccessToken(user) {
     },
     process.env.JWT_ACCESS_SECRET,
     {
-      expiresIn: "12h",
+      expiresIn: "10min",
     }
   );
   return accesstoken;

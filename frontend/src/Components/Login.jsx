@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate } from "react-router-dom";
 
 const UserLogin = () => {
@@ -52,7 +52,7 @@ if(response.status === 200) {
             <label htmlFor="loginPassword">Lösenord</label>
         </div>
         <div className="button-login-container"> 
-        <button class="btn w-100 py-2 button-login" type="submit">Logga in</button>
+        <button className="btn w-100 py-2 button-login" type="submit">Logga in</button>
         </div>
         </div>
 

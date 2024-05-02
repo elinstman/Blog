@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
-import { useVerifiedLogin, useUserName } from "../Context/auth.context";
-import { useState } from "react";
+import { useVerifiedLogin, useUserName, useHandleLogout } from "../Context/auth.context";
 
 const Header = () => {
  const userName = useUserName();
  const isVerified = useVerifiedLogin();
+ const handleLogout = useHandleLogout();
 
- console.log(userName);
-//  console.log(verifiedLogin);
 
+
+ const logout = () => {
+  handleLogout(); 
+};
  
-
 
     return (
         <>
@@ -27,7 +28,7 @@ const Header = () => {
              <p className="nav-link font-bold">
                 Hello, {userName}
               </p>
-              <Link className="nav-link" to="/logout">
+              <Link className="nav-link" to="/logout" onClick={logout}>
                 Logga ut
               </Link>
               </div>

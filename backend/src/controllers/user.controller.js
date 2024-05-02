@@ -63,32 +63,8 @@ async function loginUser(req, res) {
   }
 }
 
-// async function refreshAcessToken(req, res) {
-//   const { refreshToken } = req.body;
-
-//   try {
-//     const verifiedToken = verifyRefreshToken(refreshToken);
-//     console.log(verifiedToken);
-//     const user = await User.findOne(verifiedToken.userId);
-//     if (!user) {
-//       throw new Error("User not authorized");
-//     }
-//     const newAccessToken = generateAccessToken(user);
-//     res.json({
-//       access: newAccessToken,
-//       refresh: refreshToken,
-//     });
-//   } catch (error) {
-//     console.warn("Error in verifying 'Refresh token'", error.message);
-//     res.status(401).json({
-//       message: "User not authorized",
-//     });
-//   }
-// }
-
 module.exports = {
   createUser,
   loginUser,
   getUsers,
-  // refreshAcessToken,
 };
