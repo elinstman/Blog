@@ -30,6 +30,17 @@ async function createUser(req, res) {
   }
 }
 
+async function getUsers(req, res) {
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+    console.log("Users: ", users);
+  } catch (error) {
+    console.log("Error fetching Users ", error);
+    res.status(400).json({ message: "Error fetching Users" });
+  }
+}
+
 async function loginUser(req, res) {
   const { userName, passWord } = req.body;
   try {
@@ -78,5 +89,6 @@ async function loginUser(req, res) {
 module.exports = {
   createUser,
   loginUser,
+  getUsers,
   // refreshAcessToken,
 };
