@@ -1,5 +1,10 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const {
+  generateAccessAndRefreshToken,
+  verifyAccessToken,
+  verifyRefreshToken,
+} = require("../utils/token");
 
 async function createUser(req, res) {
   try {
@@ -25,6 +30,41 @@ async function createUser(req, res) {
   }
 }
 
+async function getUsers(req, res) {
+  try {
+    const users = await User.find();
+    res.status(200).send(users);
+    console.log("Users: ", users);
+  } catch (error) {
+    console.log("Error fetching Users ", error);
+    res.status(400).json({ message: "Error fetching Users" });
+  }
+}
+
+async function loginUser(req, res) {
+  const { userName, passWord } = req.body;
+  try {
+    const user = await User.findOne({ userName }).select("+passWord");
+
+    if (!user) {
+      return res.status(401).json({ message: "Wrong användarnamn" });
+    }
+
+    const passWordMatch = await bcrypt.compare(passWord, user.passWord);
+    if (!passWordMatch) {
+      return res.status(401).json({ message: "Wrong password" });
+    }
+
+    const token = generateAccessAndRefreshToken(user);
+    res.json(token);
+  } catch (error) {
+    console.log("Error in loginUser ", error);
+    res.status(404).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createUser,
+  loginUser,
+  getUsers,
 };

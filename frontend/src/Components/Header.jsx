@@ -1,9 +1,42 @@
 import { Link } from "react-router-dom";
+import { useVerifiedLogin, useUserName, useHandleLogout } from "../Context/auth.context";
 
 const Header = () => {
+ const userName = useUserName();
+ const isVerified = useVerifiedLogin();
+ const handleLogout = useHandleLogout();
+
+
+
+ const logout = () => {
+  handleLogout(); 
+};
+ 
+
     return (
         <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
+        {isVerified && (
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
+          <div className="header-container d-flex align-items-center justify-content-between ">
+            <div className="logo">
+              <Link to="/" className="logga">
+                <b>Elins Blog</b>
+              </Link>
+            </div>
+        
+             <div className="header-nav-container">
+             <p className="nav-link font-bold">
+                Hello, {userName}
+              </p>
+              <Link className="nav-link" to="/logout" onClick={logout}>
+                Logga ut
+              </Link>
+              </div>
+              </div>
+        </nav>
+        )}
+        {!isVerified && (
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
           <div className="header-container d-flex align-items-center justify-content-between ">
             <div className="logo">
               <Link to="/" className="logga">
@@ -20,7 +53,9 @@ const Header = () => {
               </Link>
               </div>
               </div>
-        </nav>
+        </nav> 
+        )}
+         
       </>
     )
 }
