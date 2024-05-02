@@ -1,5 +1,9 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const {
+  generateAccessAndRefreshToken,
+  verifyAccessToken,
+} = require("../utils/token");
 
 async function createUser(req, res) {
   try {
@@ -25,6 +29,28 @@ async function createUser(req, res) {
   }
 }
 
+async function loginUser(req, res) {
+  const { userName, passWord } = req.body;
+  try {
+    const user = await User.findOne({ userName }).select(["+passWord"]);
+
+    if (!user) {
+      return res.status(401).json({ message: "Wrong användarnamn" });
+    }
+
+    const passWordMatch = await bcrypt.compare(passWord, user.passWord);
+    if (!passWordMatch) {
+      return res.status(401).json({ message: "Wrong password" });
+    }
+
+    const token = generateAccessAndRefreshToken(user);
+    res.json(token);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createUser,
+  loginUser,
 };
