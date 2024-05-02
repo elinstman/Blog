@@ -13,9 +13,9 @@ const HomePage = () => {
                 <BlogPosts />
                 <BlogPosts />
                 </div>
-            <div className='col-md-4'> 
-            <Navbar />
-            </div>
+                <div className='col-md-4'> 
+                <Navbar />
+                </div>
             
             </main>
             

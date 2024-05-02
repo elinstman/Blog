@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   passWord: {
     type: String,
     required: true,
+    select: false,
   },
 });
 
