@@ -41,6 +41,18 @@ async function getUsers(req, res) {
   }
 }
 
+async function getUser(req, res) {
+  const userId = req.userId;
+  console.log("user", userId);
+  try {
+    const user = await User.findById(userId);
+    res.status(200).send(user);
+  } catch (error) {
+    console.log("Error fetching User ", error);
+    res.status(400).json({ message: "Error fetching User" });
+  }
+}
+
 async function loginUser(req, res) {
   const { userName, passWord } = req.body;
   try {
@@ -67,4 +79,5 @@ module.exports = {
   createUser,
   loginUser,
   getUsers,
+  getUser,
 };

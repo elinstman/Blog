@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from "react-router-dom";
+import { useAuth } from '../Context/auth.context';
 
 const UserLogin = () => {
+    const auth = useAuth()
     const [ userName, setUserName ] = useState('');
     const [ passWord, setPassWord ] = useState('');
     const [ inlogSuccess, setInlogSuccess ] = useState(false);
@@ -13,8 +15,13 @@ const UserLogin = () => {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
         });
 if(response.status === 200) {
+    const { access, refresh } = await response.json();
+        localStorage.setItem('accessToken', access);
+        localStorage.setItem('refreshToken', refresh);
+    auth.getUser(access)    
     alert('Inloggning lyckades!')
         setUserName('')
         setPassWord('')

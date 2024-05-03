@@ -6,6 +6,7 @@ import RegisterPage from './Pages/RegisterPage';
 import LogoutPage from './Pages/LogoutPage';
 import './App.css'
 import { AuthProvider } from './Context/auth.context';
+import CreatepostPage from './Pages/CreatepostPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/logout' element={<LogoutPage />} />
+      <Route path='/createpost' element={<CreatepostPage />} />
     </Routes>
     </AuthProvider>
     </>
