@@ -17,7 +17,7 @@ async function authenticateUser(req, res) {
 }
 
 const checkUser = async (req, res, next) => {
-  const { token } = req.cookies;
+  const { token } = req.body;
 
   if (token) {
     jwt.verify(token, secret, {}, async (err, decodedToken) => {

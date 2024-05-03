@@ -2,6 +2,7 @@ const Express = require("express");
 const cors = require("cors");
 const { urlencoded } = require("express");
 const userRouter = require("../src/routes/user.route");
+const postsRouter = require("./routes/post.route");
 
 const app = Express();
 
@@ -21,6 +22,7 @@ app.use(
 );
 
 app.use(userRouter);
+app.use(postsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
