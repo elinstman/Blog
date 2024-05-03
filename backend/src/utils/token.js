@@ -20,7 +20,7 @@ function generateRefreshToken(user) {
     },
     process.env.JWT_REFRESH_SECRET,
     {
-      expiresIn: "28d",
+      expiresIn: "20m",
     }
   );
   return refreshToken;

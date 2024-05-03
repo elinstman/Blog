@@ -41,37 +41,40 @@ export function AuthProvider({ children }) {
     }, []);
 
 
-
     const checkVerified = async () => {
         try {
-            const response = await fetch('http://localhost:8000/');
-            if (response.status === 200) {
-                setIsVerified(true);
-                const responseData = await response.json();
-                console.log("response-data", responseData);
-                if (responseData.length > 0) {
-                    const inloggedUser = responseData[0];
-                    if (inloggedUser.userName) {
-                        setUserName(inloggedUser.userName);
-                        // console.log("user name:", inloggedUser.userName);
+            const accessToken = localStorage.getItem("accessToken");
+            if (accessToken) {
+                const response = await fetch('http://localhost:8000/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
                     }
+                });
+                if (response.status === 200) {
+                    setIsVerified(true);
+                    const responseData = await response.json();
+                    setUserName(responseData.userName);
                 } else {
-                    setUserName(""); 
+                    setIsVerified(false);
+                    setUserName("");
                 }
             } else {
                 setIsVerified(false);
-                setUserName(""); 
+                setUserName("");
             }
         } catch (error) {
             setIsVerified(false);
             setUserName("");
             console.error('Error checking login status:', error);
         }
-    }
+    };
 
+    // ändra på state om vid logout
     const handleLogout = () => {
         setIsVerified(false);
       };
+
 
     return (
         <VerifiedLoginContext.Provider  value={isVerified }>

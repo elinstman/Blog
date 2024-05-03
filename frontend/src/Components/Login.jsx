@@ -13,8 +13,12 @@ const UserLogin = () => {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
         });
 if(response.status === 200) {
+    const { access, refresh } = await response.json();
+        localStorage.setItem('accessToken', access);
+        localStorage.setItem('refreshToken', refresh);
     alert('Inloggning lyckades!')
         setUserName('')
         setPassWord('')
