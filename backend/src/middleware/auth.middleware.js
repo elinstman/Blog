@@ -17,30 +17,25 @@ async function authenticateUser(req, res) {
 }
 
 const checkUser = async (req, res, next) => {
-  const { token } = req.body;
+  const authorization = req.header("Authorization");
+
+  const token = authorization.split(" ")?.[1] || "";
 
   if (token) {
     jwt.verify(token, secret, {}, async (err, decodedToken) => {
+      console.log(decodedToken, err);
       if (err) {
         console.error("Error verifying token:", err);
-        res.locals.user = null;
-        next();
+        return res.status(401).json({ error: "Unauthorized" });
       } else {
         console.log("Decoded token:", decodedToken);
-        try {
-          const user = await User.findById(decodedToken.id);
-          res.locals.user = user;
-          next();
-        } catch (error) {
-          console.error("Error fetching user:", error);
-          res.locals.user = null;
-          next();
-        }
+        // const user = await User.findById(decodedToken.id);
+        req.userId = decodedToken.userId;
+        return next();
       }
     });
   } else {
-    res.locals.user = null;
-    next();
+    return res.status(401).json({ error: "Unauthorized" });
   }
 };
 

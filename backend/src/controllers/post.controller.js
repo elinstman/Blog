@@ -26,6 +26,22 @@ async function createPost(req, res) {
   }
 }
 
+async function getPosts(req, res) {
+  try {
+    const posts = await BlogPost.find()
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(20);
+    console.log(posts);
+
+    res.send(posts);
+  } catch (error) {
+    console.log("Error fetching Posts ", error);
+    res.status(500).json({ message: "Error fetching Posts" });
+  }
+}
+
 module.exports = {
   createPost,
+  getPosts,
 };

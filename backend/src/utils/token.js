@@ -7,7 +7,7 @@ function generateAccessToken(user) {
     },
     process.env.JWT_ACCESS_SECRET,
     {
-      expiresIn: "10min",
+      expiresIn: "12h",
     }
   );
   return accesstoken;
@@ -20,7 +20,7 @@ function generateRefreshToken(user) {
     },
     process.env.JWT_REFRESH_SECRET,
     {
-      expiresIn: "20m",
+      expiresIn: "30d",
     }
   );
   return refreshToken;
