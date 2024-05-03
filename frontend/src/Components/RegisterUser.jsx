@@ -11,6 +11,7 @@ const RegisterUser = () => {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },
+            credentials: "include",
         });
 if(response.status === 201) {
     alert('Registrering lyckades!')

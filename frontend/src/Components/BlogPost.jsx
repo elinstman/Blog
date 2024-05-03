@@ -1,4 +1,28 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+
 const BlogPosts = () => {
+    const [blogPosts, setBlogPosts] = useState([]);
+
+    useEffect(() => {
+        fetchBlogPosts();
+    }, []);
+
+    const fetchBlogPosts = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/blogposts'); 
+            if (response.status === 200) {
+                setBlogPosts(response.data);
+                // console.log('Blog posts fetched successfully:', response.data);
+            } else {
+                console.error('Failed to fetch blog posts:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching blog posts:', error);
+        }
+    };
+
     return (
         <>
         <div className="col-md-8 blog-post-container">
