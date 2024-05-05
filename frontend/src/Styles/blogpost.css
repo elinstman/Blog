@@ -2,5 +2,6 @@
 .blog-text-container {
     margin-top: 1rem;
     text-align: left;
+    width: 100% !important;
 }
 

@@ -7,7 +7,7 @@ const CreatePost = () => {
         try {
           const { titel, summary, content, author } = values
           console.log("Creating blogpost with values:", values);
-            const res = await axios.post("/blogpost", 
+            const res = await axios.post("/", 
             { firstName, lastName, email, address });
             console.log("new customer: ", res.data);
             setCustomerSaved(true);
@@ -19,6 +19,9 @@ const CreatePost = () => {
         console.error('Error creating customer:', error);
       }
     }
+
+
+
     return (
         <>
             <div className="col-md-7 col-lg-8">

@@ -4,43 +4,70 @@ import axios from 'axios';
 
 const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
+    // const [author, setAuthor ] = useState();
 
     useEffect(() => {
         fetchBlogPosts();
     }, []);
 
+
+    const getAuthor = async (authorId) => {
+        try {
+            const userResponse = await axios.get(`http://localhost:8000/users/${authorId}`)
+            if (userResponse.status === 200) {
+                return userResponse.data.userName;
+            }
+        } catch (error) {
+            console.log("fel i att hämta användare", error);
+        }
+    }
+
     const fetchBlogPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/blogposts'); 
+            const response = await axios.get('http://localhost:8000/'); 
             if (response.status === 200) {
-                setBlogPosts(response.data);
-                // console.log('Blog posts fetched successfully:', response.data);
+                const posts = response.data;
+                const updatedPosts = await Promise.all(posts.map(async (post) => {
+                    const authorName = await getAuthor(post.author);
+                    return { ...post, authorName };
+                }));
+                setBlogPosts(updatedPosts);
+                console.log("här är blogginläggen", blogPosts)
             } else {
                 console.error('Failed to fetch blog posts:', response.statusText);
             }
         } catch (error) {
             console.error('Error fetching blog posts:', error);
         }
+
+       
     };
 
-    return (
-        <>
-        <div className="col-md-8 blog-post-container">
-            <h2 className="border-bottom display-5 mb-1">Titel</h2>
-            <span className="blog-post-meta">Av: Användarnamn </span>
-            <div className="blog-text-container">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odio blanditiis sapiente, id porro iste deserunt enim temp.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, praesentium nemo error dolore animi laudantium porro, saepe 
-                expedita doloribus assumenda mollitia a, quisquam recusandae. Fuga repudiandae laboriosam voluptate nobis obcaecati!
-            </p>
-            <span>Publicerad: 2024-04-26</span>
-            </div>
-            
-        </div>
+ 
 
-    
+
+
+    return (
+        <> 
+        {blogPosts.map((post, i) => {
+            return (
+                <div className="col-md-8 blog-post-container" key={i}>
+                    <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
+                    <span className="blog-post-meta">Användare: {post.author_id}</span>
+                    <div className="blog-text-container"> 
+                        <p>{post.summary}</p>
+                    </div>
+                    <div className="blog-text-container">
+                        <p>{post.content}</p>
+                        <span>Publicerad: {post.createdAt}</span>
+                    </div>
+                </div>
+            );
+        })}
         </>
     )
+
+    
 }
 
 export default BlogPosts;
