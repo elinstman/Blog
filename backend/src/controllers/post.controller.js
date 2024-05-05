@@ -29,7 +29,7 @@ async function createPost(req, res) {
 async function getPosts(req, res) {
   try {
     const posts = await BlogPost.find()
-      .populate("author", ["username"])
+      .populate("author", ["userName"])
       .sort({ createdAt: -1 })
       .limit(20);
     console.log(posts);

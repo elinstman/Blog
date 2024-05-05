@@ -4,46 +4,27 @@ import axios from 'axios';
 
 const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
-    // const [author, setAuthor ] = useState();
 
     useEffect(() => {
         fetchBlogPosts();
     }, []);
 
-
-    const getAuthor = async (authorId) => {
-        try {
-            const userResponse = await axios.get(`http://localhost:8000/users/${authorId}`)
-            if (userResponse.status === 200) {
-                return userResponse.data.userName;
-            }
-        } catch (error) {
-            console.log("fel i att hämta användare", error);
-        }
-    }
-
     const fetchBlogPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/'); 
+            const response = await axios.get('http://localhost:8000/blogposts'); 
             if (response.status === 200) {
-                const posts = response.data;
-                const updatedPosts = await Promise.all(posts.map(async (post) => {
-                    const authorName = await getAuthor(post.author);
-                    return { ...post, authorName };
-                }));
-                setBlogPosts(updatedPosts);
                 console.log("här är blogginläggen", blogPosts)
+                setBlogPosts(response.data);
             } else {
                 console.error('Failed to fetch blog posts:', response.statusText);
             }
         } catch (error) {
             console.error('Error fetching blog posts:', error);
         }
-
-       
     };
+   
 
- 
+   
 
 
 
@@ -53,7 +34,7 @@ const BlogPosts = () => {
             return (
                 <div className="col-md-8 blog-post-container" key={i}>
                     <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
-                    <span className="blog-post-meta">Användare: {post.author_id}</span>
+                    <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
                     <div className="blog-text-container"> 
                         <p>{post.summary}</p>
                     </div>

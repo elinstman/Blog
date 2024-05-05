@@ -4,7 +4,7 @@ const { createPost, getPosts } = require("../controllers/post.controller");
 
 const postsRouter = Router();
 
-postsRouter.get("/", getPosts);
+postsRouter.get("/blogposts", getPosts);
 postsRouter.post("/createpost", checkUser, createPost);
 
 module.exports = postsRouter;

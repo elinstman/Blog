@@ -29,7 +29,6 @@ const CreatePost = () => {
             </div>
             <form  
             className="needs-validation"
-            onSubmit={handleSubmit}
             >
                 <div className="row g-3">
                     <div className="col-sm-6">
@@ -57,4 +56,4 @@ const CreatePost = () => {
     )
 }
 
-export default CreatepostPage;
+export default CreatePost;

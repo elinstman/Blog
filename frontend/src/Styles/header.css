@@ -22,6 +22,12 @@
     color: rgb(57, 43, 43);;
     text-decoration: none;
   }
+
+  p {
+    margin-bottom: 0 !important;
+  }
+
+
   
   .nav-link:hover {
     color: lightgrey;

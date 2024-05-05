@@ -11,7 +11,7 @@ const userRouter = Router();
 
 userRouter.post("/register", createUser);
 userRouter.post("/login", loginUser);
-userRouter.get("/users", checkUser, getUsers);
+userRouter.get("/users", getUsers);
 userRouter.get("/user", checkUser, getUser);
 
 module.exports = userRouter;

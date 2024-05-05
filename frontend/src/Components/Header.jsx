@@ -24,7 +24,10 @@ const Header = () => {
               </Link>
             </div>
         
-             <div className="header-nav-container">
+             <div className="header-nav-container align-items-center">
+              <button className="btn-small">
+                Skriv inlägg
+              </button>
              <p className="nav-link font-bold">
                 Hello, {userName}
               </p>

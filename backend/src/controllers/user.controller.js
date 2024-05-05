@@ -30,14 +30,33 @@ async function createUser(req, res) {
   }
 }
 
+// async function getUsers(req, res) {
+//   try {
+//     const users = await User.find({}, "userName"); // Hämtar bara användarnamn
+//     const userNames = users.map((user) => user.userName); // Extraherar användarnamnen
+
+//     res.status(200).json(userNames);
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     res.status(500).json({ error: "Error fetching users" });
+//   }
+// }
+
 async function getUsers(req, res) {
   try {
+    // Hämta alla användare
     const users = await User.find();
-    res.status(200).send(users);
-    console.log("Users: ", users);
+
+    // Skicka tillbaka alla användare med deras ID och användarnamn
+    res.status(200).json(
+      users.map((user) => ({
+        userId: user._id,
+        userName: user.userName,
+      }))
+    );
   } catch (error) {
-    console.log("Error fetching Users ", error);
-    res.status(400).json({ message: "Error fetching Users" });
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Error fetching users" });
   }
 }
 
