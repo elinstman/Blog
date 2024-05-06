@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 const AuthContext = React.createContext({
     isVerified: false,
     userName: "",
+    userId: "",
     handleLogout: () => {},
     getUser: async (accessToken) => {}
 })
@@ -26,6 +27,7 @@ export function useHandleLogout() {
 export function AuthProvider({ children }) {
     const [isVerified, setIsVerified] = useState(false);
     const [userName, setUserName] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
         checkVerified();
@@ -65,17 +67,21 @@ export function AuthProvider({ children }) {
                 setIsVerified(true);
                 const responseData = await response.json();
                 setUserName(responseData.userName);
+                setUserId(responseData.userId);
             } else {
                 setIsVerified(false);
                 setUserName("");
+                setUserId("");
             }
         } else {
             setIsVerified(false);
             setUserName("");
+            setUserId("");
         }
         } catch (error) {
             setIsVerified(false);
             setUserName("");
+            setUserId("");
             console.error('Error checking login status:', error);
         }
     }
@@ -84,6 +90,7 @@ export function AuthProvider({ children }) {
     const handleLogout = () => {
         setIsVerified(false);
         setUserName("")
+        setUserId("");
         localStorage.removeItem('accessToken')
         localStorage.removeItem('refreshToken')
     };
@@ -97,6 +104,7 @@ export function AuthProvider({ children }) {
                     <AuthContext.Provider value={{
                         isVerified,
                         userName,
+                        userId,
                         handleLogout,
                         getUser
                     }}>

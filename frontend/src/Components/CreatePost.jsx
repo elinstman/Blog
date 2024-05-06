@@ -1,15 +1,27 @@
 import axios from "axios";
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../Context/auth.context";
 
 const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
+    const { userId }= useAuth();
+
    
     const createBlogpost = async (values) => {
         try {
-          const { titel, summary, content, author } = values
+          const { titel, summary, content } = values
           console.log("Creating blogpost with values:", values);
-            const res = await axios.post("http://localhost:8000/createpost", 
-            { titel, summary, content, author });
+          const newPost = {
+            titel: titel.value,
+            summary: summary.value,
+            content: content.value,
+            author: userId,
+          };
+          
+
+            const res = await axios.post("http://localhost:8000/createpost", newPost)
+            // { titel, summary, content, author });
             console.log("new blogpost ", res.data);
+            setShowCreatePost(false);
             
   
       } catch (error) {
@@ -33,8 +45,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
             <div className="col-md-7 col-lg-8">
 
             </div>
-            <form
-            onSubmit={createBlogpost}  
+            <form  
             className="needs-validation form-container"
             >
                 <div className="">
@@ -72,6 +83,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
                     <button
                      className="w-60 btn-sm"
                      type="submit"
+                     onClick={createBlogpost}
                      >Spara blogginlägg</button>
                 </div>
                 
