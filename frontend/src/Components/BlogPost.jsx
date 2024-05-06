@@ -11,7 +11,7 @@ const BlogPosts = () => {
 
     const fetchBlogPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/blogposts'); 
+            const response = await axios.get(import.meta.env.VITE_BACKEND_URL+"/blogposts"); 
             if (response.status === 200) {
                 console.log("här är blogginläggen", blogPosts)
                 setBlogPosts(response.data);

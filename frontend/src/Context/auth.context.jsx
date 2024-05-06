@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
     const getUser = async (accessToken) => {
         try { 
         if (accessToken) {
-            const response = await fetch('http://localhost:8000/user', {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/user", {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`

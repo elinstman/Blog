@@ -18,7 +18,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
           };
           
 
-            const res = await axios.post("http://localhost:8000/createpost", newPost)
+            const res = await axios.post(import.meta.env.VITE_BACKEND_URL+"/createpost", newPost)
             // { titel, summary, content, author });
             console.log("new blogpost ", res.data);
             setShowCreatePost(false);

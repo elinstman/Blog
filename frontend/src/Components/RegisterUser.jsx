@@ -7,7 +7,7 @@ const RegisterUser = () => {
     async function registerUser(ev) {
         ev.preventDefault();
 
-         const response = await fetch('http://localhost:8000/register', {
+         const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/register", {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },

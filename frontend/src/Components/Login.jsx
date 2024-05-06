@@ -11,7 +11,7 @@ const UserLogin = () => {
     async function loginUser(ev) {
         ev.preventDefault();
 
-         const response = await fetch('http://localhost:8000/login', {
+         const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/login", {
             method: 'POST',
             body: JSON.stringify({ userName, passWord }),
             headers: { 'Content-Type': 'application/json' },
