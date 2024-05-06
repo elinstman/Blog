@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import EditPost from './EditPost';
 
 
 const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
+    const [showEditBlogpost, setShowEditBlogpost] = useState(false);
 
     useEffect(() => {
         fetchBlogPosts();
@@ -24,7 +27,9 @@ const BlogPosts = () => {
     };
    
 
-   
+    const toggleEditPostModal = () => {
+        setShowEditBlogpost((prevState) => !prevState);
+      };
 
 
 
@@ -36,15 +41,28 @@ const BlogPosts = () => {
                     <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
                     <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
                     <div className="blog-text-container"> 
-                        <p>{post.summary}</p>
+                        <p className='font-bold'>{post.summary}</p>
                     </div>
-                    <div className="blog-text-container">
-                        <p>{post.content}</p>
+                    <div className="blog-text-container ">
+                        <p className='border-bottom'>{post.content}</p>
+                        <div className='blogpost-info'> 
                         <span>Publicerad: {post.createdAt}</span>
+                        <a
+                        className=''
+                        onClick={toggleEditPostModal}                    
+                        >Redigera inlägg</a>
+                        </div>
                     </div>
+                    
                 </div>
+               
             );
         })}
+         {showEditBlogpost && (
+                    <div>
+                        <EditPost />
+                    </div>
+                )}
         </>
     )
 

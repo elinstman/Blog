@@ -41,6 +41,25 @@ async function getPosts(req, res) {
   }
 }
 
+async function editPost(req, res) {
+  const { id, title, summary, content } = req.body;
+  try {
+    const updatedPost = await BlogPost.findByIdAndUpdate(
+      id,
+      { title, summary, content },
+      { new: true }
+    );
+
+    if (!updatedPost) {
+      return res.status(404).json({ message: "Blog post not found" });
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.log("error edit blogpost", error);
+  }
+}
+
 module.exports = {
   createPost,
   getPosts,
