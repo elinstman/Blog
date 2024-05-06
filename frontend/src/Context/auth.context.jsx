@@ -4,6 +4,7 @@ const AuthContext = React.createContext({
     isVerified: false,
     userName: "",
     userId: "",
+    // userAccessToken: "",
     handleLogout: () => {},
     getUser: async (accessToken) => {}
 })
@@ -28,6 +29,8 @@ export function AuthProvider({ children }) {
     const [isVerified, setIsVerified] = useState(false);
     const [userName, setUserName] = useState("");
     const [userId, setUserId] = useState("");
+    // const [ userAccessToken, setUserAccessToken] = useState("");
+
 
     useEffect(() => {
         checkVerified();
@@ -50,8 +53,8 @@ export function AuthProvider({ children }) {
 
     const checkVerified = async () => {
             const accessToken = localStorage.getItem("accessToken");
-            getUser(accessToken);
-            
+            // setUserAccessToken(accessToken)
+            getUser(accessToken);      
     };
 
     const getUser = async (accessToken) => {
@@ -67,7 +70,8 @@ export function AuthProvider({ children }) {
                 setIsVerified(true);
                 const responseData = await response.json();
                 setUserName(responseData.userName);
-                setUserId(responseData.userId);
+                setUserId(responseData._id);
+                // console.log("inloggad user", userId);
             } else {
                 setIsVerified(false);
                 setUserName("");
