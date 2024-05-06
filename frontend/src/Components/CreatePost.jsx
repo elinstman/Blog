@@ -1,57 +1,100 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../Context/auth.context";
 
-const CreatePost = () => {
+const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
+    const { userId }= useAuth();
+
    
     const createBlogpost = async (values) => {
         try {
-          const { titel, summary, content, author } = values
+          const { titel, summary, content } = values
           console.log("Creating blogpost with values:", values);
-            const res = await axios.post("/blogpost", 
-            { firstName, lastName, email, address });
-            console.log("new customer: ", res.data);
-            setCustomerSaved(true);
-            const customerInfo = extractCustomerInfo(res.data);
-            setCustInfo(customerInfo);
-            console.log("cust info", custInfo);
+          const newPost = {
+            titel: titel.value,
+            summary: summary.value,
+            content: content.value,
+            author: userId,
+          };
+          
+
+            const res = await axios.post("http://localhost:8000/createpost", newPost)
+            // { titel, summary, content, author });
+            console.log("new blogpost ", res.data);
+            setShowCreatePost(false);
+            
   
       } catch (error) {
         console.error('Error creating customer:', error);
       }
     }
+
+
+
     return (
         <>
+        <div className="modal-content popup-overlay py-5 text-center">
+            <div className="popup-content" ref={createPostModalRef}>
+            <div className="modal-header popup-header-container">
+            <h2 className="modal-title">Skapa inlägg</h2>
+        <p className="lead">Beskrivande text för att skapa blogginlägg</p>
+            </div>
+       
+        
+
             <div className="col-md-7 col-lg-8">
-                <h4 className="md-3">Skriv inlägg</h4>
+
             </div>
             <form  
-            className="needs-validation"
-            onSubmit={handleSubmit}
+            className="needs-validation form-container"
             >
-                <div className="row g-3">
-                    <div className="col-sm-6">
+                <div className="">
+                    <div className="">
                         <label
                         htmlFor="titel"
                         className="form-label">Titel</label>
                         <input 
                         type="text" 
                         name="titel"
-                        // value={}
-                        // onChange={} 
-                        
+                        className="form-control form-control-sm"
                         />
+                        <div className="col-12">
+                        <label htmlFor="summary" className="form-label">Kort sammanfattning</label>
+                        <input 
+                        type="text" 
+                        name="summary"
+                        className="form-control form-control-sm blogsummary-input"
+                        />
+                        </div>
+                        <div className="col-12">
+                        <label htmlFor="content" className="form-label">Inlägg</label>
+                        <input 
+                        type="text" 
+                        name="content"
+                        className="form-control form-control-sm blogtext-input"
+                        />
+                        </div>
 
                     </div>
 
                 </div>
+
+                <div>
+                    <button
+                     className="w-60 btn-sm"
+                     type="submit"
+                     onClick={createBlogpost}
+                     >Spara blogginlägg</button>
+                </div>
+                
                 
 
             </form>
     
-        
-        
+            </div>
+            </div>
         </>
     )
 }
 
-export default CreatepostPage;
+export default CreatePost;

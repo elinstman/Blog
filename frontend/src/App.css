@@ -1,9 +1,10 @@
 @import url("Styles/header.css");
 @import url("Styles/loginPage.css");
 @import url("Styles/blogpost.css");
+@import url("Styles/createpost.css");
 
 #root {
-  max-width: 1000px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -17,6 +18,8 @@
 .font-bold {
   font-weight: bold;
 }
+
+
 
 /* main/Homepage container */
 .main-container {

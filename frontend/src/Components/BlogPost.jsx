@@ -13,8 +13,8 @@ const BlogPosts = () => {
         try {
             const response = await axios.get('http://localhost:8000/blogposts'); 
             if (response.status === 200) {
+                console.log("här är blogginläggen", blogPosts)
                 setBlogPosts(response.data);
-                // console.log('Blog posts fetched successfully:', response.data);
             } else {
                 console.error('Failed to fetch blog posts:', response.statusText);
             }
@@ -22,25 +22,33 @@ const BlogPosts = () => {
             console.error('Error fetching blog posts:', error);
         }
     };
+   
+
+   
+
+
 
     return (
-        <>
-        <div className="col-md-8 blog-post-container">
-            <h2 className="border-bottom display-5 mb-1">Titel</h2>
-            <span className="blog-post-meta">Av: Användarnamn </span>
-            <div className="blog-text-container">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odio blanditiis sapiente, id porro iste deserunt enim temp.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, praesentium nemo error dolore animi laudantium porro, saepe 
-                expedita doloribus assumenda mollitia a, quisquam recusandae. Fuga repudiandae laboriosam voluptate nobis obcaecati!
-            </p>
-            <span>Publicerad: 2024-04-26</span>
-            </div>
-            
-        </div>
-
-    
+        <> 
+        {blogPosts.map((post, i) => {
+            return (
+                <div className="col-md-8 blog-post-container" key={i}>
+                    <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
+                    <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
+                    <div className="blog-text-container"> 
+                        <p>{post.summary}</p>
+                    </div>
+                    <div className="blog-text-container">
+                        <p>{post.content}</p>
+                        <span>Publicerad: {post.createdAt}</span>
+                    </div>
+                </div>
+            );
+        })}
         </>
     )
+
+    
 }
 
 export default BlogPosts;

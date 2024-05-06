@@ -1,16 +1,41 @@
 import { Link } from "react-router-dom";
 import { useVerifiedLogin, useUserName, useHandleLogout } from "../Context/auth.context";
+import { useState, useRef, useEffect } from "react";
+import CreatePost from "./CreatePost";
 
 const Header = () => {
  const userName = useUserName();
  const isVerified = useVerifiedLogin();
  const handleLogout = useHandleLogout();
+ const [showCreatePost, setShowCreatePost] = useState(false);
+ const createPostModalRef = useRef();
 
 
 
  const logout = () => {
   handleLogout(); 
 };
+
+const toggleCreatePostModal = () => {
+  setShowCreatePost((prevState) => !prevState);
+};
+
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      createPostModalRef.current &&
+      !createPostModalRef.current.contains(event.target)
+    ) {
+      setShowCreatePost(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
  
 
     return (
@@ -24,7 +49,12 @@ const Header = () => {
               </Link>
             </div>
         
-             <div className="header-nav-container">
+             <div className="header-nav-container align-items-center">
+              <button 
+              className="btn-small"
+              onClick={toggleCreatePostModal}>
+                Skriv inlägg
+              </button>
              <p className="nav-link font-bold">
                 Hello, {userName}
               </p>
@@ -55,6 +85,13 @@ const Header = () => {
               </div>
         </nav> 
         )}
+
+        {showCreatePost && (
+         <div className="modal-dialog" >
+          <CreatePost setShowCreatePost={setShowCreatePost} createPostModalRef={createPostModalRef} />
+          </div>
+        )}
+       
          
       </>
     )
