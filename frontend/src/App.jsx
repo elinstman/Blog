@@ -20,7 +20,7 @@ function App() {
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/logout' element={<LogoutPage />} />
       <Route path='/createpost' element={<CreatepostPage />} />
-      <Route path='/edit/:id' element={<EditPost />} />
+      <Route path='/:id' element={<EditPost />} />
     </Routes>
     </AuthProvider>
     </>

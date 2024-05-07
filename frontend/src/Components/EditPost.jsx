@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Context/auth.context";
 // import { useFormik } from "formik";
 // import * as Yup from "yup";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 
 const EditPost = ({ setShowEditBlogpost, editPostModalRef, fetchBlogPosts }) => {
     const { userId, userName }= useAuth();
     const { id } = useParams();
     const [post, setPost] = useState({ });
-      // const { savedValues, setSavedValues } = useState();
+      const [successEdit, setSuccessEdit ] = useState(false);
      
       
 
@@ -57,11 +57,16 @@ const EditPost = ({ setShowEditBlogpost, editPostModalRef, fetchBlogPosts }) => 
                 author:  post.author._id
             });
             console.log("Updated blog post:", res.data);
+            setSuccessEdit(true);
             // Uppdatera blogginläggen efter redigering
         } catch (error) {
             console.error('Error updating post:', error);
         }
     };
+
+    if (successEdit) {
+        return <Navigate to={'/'} />
+    }
   
 
     const handleInputChange = (e) => {

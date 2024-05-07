@@ -66,9 +66,10 @@ const BlogPosts = () => {
                         <p className='border-bottom'>{post.content}</p>
                         <div className='blogpost-info'> 
                         <span>Publicerad: {post.createdAt}</span>
+                        
                         <Link
                         className=''
-                        to={`/edit/${post._id}/`}
+                        to={`/${post._id}/`}
                         onClick={toggleEditPostModal}                  
                         >Redigera inlägg</Link>
                         </div>
