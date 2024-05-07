@@ -41,7 +41,59 @@ async function getPosts(req, res) {
   }
 }
 
+async function getPostById(req, res) {
+  const postId = req.params.id;
+  const userId = req.userId;
+
+  try {
+    const post = await BlogPost.findById(postId).populate({
+      path: "author",
+      select: "userName id",
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Blog post not found" });
+    }
+
+    if (post.author._id.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to edit this post" });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Error fetching post by id:", error);
+    res.status(500).json({ message: "Error fetching post by id" });
+  }
+}
+
+async function editPost(req, res) {
+  const editPostId = req.params.id;
+
+  const { title, summary, content, author } = req.body;
+  try {
+    const updatedPost = await BlogPost.findByIdAndUpdate(
+      editPostId,
+      { title, summary, content, author, editPostId },
+      { new: true }
+    );
+    console.log("updatedPost", updatedPost);
+
+    if (!updatedPost) {
+      // return res.status(404).json({ message: "Blog post not found" });
+      console.log("kan ej uppdatera inlägget", message);
+    }
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.log("error edit blogpost", error);
+  }
+}
+
 module.exports = {
   createPost,
   getPosts,
+  editPost,
+  getPostById,
 };

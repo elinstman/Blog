@@ -3,6 +3,9 @@
     margin-top: 1rem;
     text-align: left;
     width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .blogpost-container {
@@ -11,4 +14,16 @@
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
+}
+
+.border-bottom {
+    padding-bottom: 10px;
+}
+
+.blogpost-info span {
+    margin-right: 10px; /* Lägger till högermarginal */
+}
+
+.blogpost-info a {
+    margin-left: 10px; /* Lägger till vänstermarginal */
 }
