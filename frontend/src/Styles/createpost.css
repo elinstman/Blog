@@ -50,3 +50,13 @@
   -col-sm-6 {
     width: 100% !important;
   }
+
+  /* Modal popup varning */
+  .modal-warn {
+    padding: 20px;
+  }
+
+  .modal-warn .button {
+    background-color: rgb(50, 26, 30);
+    color: white;
+  }

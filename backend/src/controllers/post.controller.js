@@ -43,14 +43,22 @@ async function getPosts(req, res) {
 
 async function getPostById(req, res) {
   const postId = req.params.id;
+  const userId = req.userId;
 
   try {
-    const post = await BlogPost.findById(postId).populate("author", [
-      "userName",
-    ]);
+    const post = await BlogPost.findById(postId).populate({
+      path: "author",
+      select: "userName id",
+    });
 
     if (!post) {
       return res.status(404).json({ message: "Blog post not found" });
+    }
+
+    if (post.author._id.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to edit this post" });
     }
 
     res.status(200).json(post);

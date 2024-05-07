@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import EditPost from './EditPost';
+import { useVerifiedLogin } from "../Context/auth.context";
 
 
 const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
     const [showEditBlogpost, setShowEditBlogpost] = useState(false);
     const editPostModalRef = useRef();
+    const isVerified = useVerifiedLogin();
 
 
     useEffect(() => {
@@ -58,7 +60,10 @@ const BlogPosts = () => {
             return (
                 <div className="col-md-8 blog-post-container" key={post._id}>
                     <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
+                    <div className='blogpost-info'>
                     <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
+                    <Link>Kommentarer</Link>
+                    </div>
                     <div className="blog-text-container"> 
                         <h4 className=''>{post.summary}</h4>
                     </div>
@@ -66,12 +71,15 @@ const BlogPosts = () => {
                         <p className='border-bottom'>{post.content}</p>
                         <div className='blogpost-info'> 
                         <span>Publicerad: {post.createdAt}</span>
-                        
-                        <Link
+                        {isVerified && (
+                            <Link
                         className=''
                         to={`/${post._id}/`}
                         onClick={toggleEditPostModal}                  
                         >Redigera inlägg</Link>
+                        )}
+                        
+                        
                         </div>
                     </div>
                     
@@ -82,6 +90,7 @@ const BlogPosts = () => {
          {showEditBlogpost && (
                     <div>
                         <EditPost 
+                        toggleEditPostModal={toggleEditPostModal}
                         setShowEditBlogpost={setShowEditBlogpost} 
                         editPostModalRef={editPostModalRef} 
                         fetchBlogPosts={fetchBlogPosts} 
