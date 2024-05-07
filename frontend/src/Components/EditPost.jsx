@@ -1,25 +1,77 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Context/auth.context";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+// import { useFormik } from "formik";
+// import * as Yup from "yup";
 import { useParams } from "react-router-dom";
 
 
-const EditPost = ({ createPostModalRef }) => {
+const EditPost = ({ setShowEditBlogpost, editPostModalRef, fetchBlogPosts }) => {
     const { userId, userName }= useAuth();
     const { id } = useParams();
-    const [post, setPost] = useState({
-        title: '',
-        summary: '',
-        content: ''
-      });
-    // const { savedValues, setSavedValues } = useState();
-    
+    const [post, setPost] = useState({ });
+      // const { savedValues, setSavedValues } = useState();
+     
+      
+
+    const [formValues, setFormValues] = useState({
+        title: "",
+        summary: "",
+        content: ""
+    });
+
     useEffect(() => {
-        // Hämta det valda blogginlägget för redigering
         fetchPost();
-      }, []);
+    }, []);
+
+    const fetchPost = async () => {
+        try {
+            const response = await axios.get(import.meta.env.VITE_BACKEND_URL+ `/blogposts/${id}`);
+            console.log("blogginlägg med det valda id:t", response.data)
+            setPost(response.data);
+            setFormValues({
+                title: response.data.title,
+                summary: response.data.summary,
+                content: response.data.content,
+                id: response.data.id
+            });
+        } catch (error) {
+            console.error('Error fetching post:', error);
+        }
+    };
+
+    const updateBlogPost = async (e) => {
+        e.preventDefault();
+        try {
+            console.log("Updating blog post with the following values:", {
+                id: id,
+                title: formValues.title,
+                summary: formValues.summary,
+                content: formValues.content,
+                author: post.author._id }
+            );
+            const res = await axios.put(import.meta.env.VITE_BACKEND_URL+`/blogposts/${id}`, {
+                title: formValues.title,
+                summary: formValues.summary,
+                content: formValues.content,
+                author:  post.author._id
+            });
+            console.log("Updated blog post:", res.data);
+            // Uppdatera blogginläggen efter redigering
+        } catch (error) {
+            console.error('Error updating post:', error);
+        }
+    };
+  
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues({
+            ...formValues,
+            [name]: value
+        });
+    };
+
   
 
 //   const userAccessToken = localStorage.getItem("accessToken");
@@ -35,21 +87,17 @@ const EditPost = ({ createPostModalRef }) => {
     return (
         <>
         <div className="modal-content popup-overlay py-5 text-center">
-            <div className="popup-content" ref={createPostModalRef}>
+            <div className="popup-content" ref={editPostModalRef}>
             <div className="modal-header popup-header-container">
-            <h2 className="modal-title">Redigera inlägg</h2>
+            <h2 className="modal-title">Redigera bloggpost</h2>
         <p className="lead">Beskrivande text för att redigera blogginlägg</p>
             </div>
-       
-        
-
             <div className="col-md-7 col-lg-8">
 
             </div>
             <form  
-            className="needs-validation form-container"
-            onSubmit={formik.handleSubmit}
-            noValidate
+            className="needs-validation form-container"   
+            onSubmit={updateBlogPost}        
             >
                 <div className="">
                     <div className="">
@@ -58,49 +106,31 @@ const EditPost = ({ createPostModalRef }) => {
                         className="form-label"
                         >Titel</label>
                         <input 
+                        value={formValues.title}
+                        onChange={handleInputChange}
                         type="text" 
-                        value={formik.values.title}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
                         name="title"
-                        className={`form-control form-control-sm ${formik.touched.title ? formik.errors.title ? "is-invalid" : "is-valid" : ""}`} 
+                        className={`form-control form-control-sm`} 
                         />
-                        {formik.touched.title && formik.errors.title ? (
-                     <div className="invalid-feedback">
-                     {formik.errors.title}
-                         </div>
-                         ) : null}
                         <div className="col-12">
                         <label htmlFor="summary" className="form-label">Kort sammanfattning</label>
                         <input 
                         type="text" 
-                        value={formik.values.summary}
+                        value={formValues.summary}
+                        onChange={handleInputChange}
                         name="summary"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        className={`form-control form-control-sm blogsummary-input ${formik.touched.summary ? formik.errors.summary ? "is-invalid" : "is-valid" : ""}`}
-                        />
-                        {formik.touched.summary && formik.errors.summary ? (
-                     <div className="invalid-feedback">
-                     {formik.errors.summary}
-                         </div>
-                         ) : null}
+                        className={`form-control form-control-sm blogsummary-input`}
+                        />                        
                         </div>
                         <div className="col-12">
                         <label htmlFor="content" className="form-label">Inlägg</label>
                         <input 
                         type="text" 
-                        value={formik.values.content}
-                        name="content"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        className={`form-control form-control-sm blogtext-input ${formik.touched.content ? formik.errors.content ? "is-invalid" : "is-valid" : ""}`}
-                        />
-                        {formik.touched.content && formik.errors.content ? (
-                     <div className="invalid-feedback">
-                     {formik.errors.content}
-                         </div>
-                         ) : null}
+                        name="content"   
+                        value={formValues.content}
+                        onChange={handleInputChange}                    
+                        className={`form-control form-control-sm blogtext-input`}
+                        />                    
                         </div>
 
                     </div>
@@ -111,8 +141,6 @@ const EditPost = ({ createPostModalRef }) => {
                     <button
                      className="w-60 btn-sm"
                      type="submit"
-                     onClick={formik.handleSubmit}
-                     disabled={formik.isSubmitting}
                      >Uppdatera blogginlägg</button>
                 </div>
                 

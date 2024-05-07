@@ -4,12 +4,14 @@ const {
   createPost,
   getPosts,
   editPost,
+  getPostById,
 } = require("../controllers/post.controller");
 
 const postsRouter = Router();
 
 postsRouter.get("/blogposts", getPosts);
-postsRouter.put("blogpost/:id", checkUser, editPost);
+postsRouter.get("/blogposts/:id", getPostById);
 postsRouter.post("/createpost", checkUser, createPost);
+postsRouter.put("/blogposts/:id", editPost);
 
 module.exports = postsRouter;
