@@ -58,7 +58,7 @@ useEffect(() => {
              <p className="nav-link font-bold">
                 Hello, {userName}
               </p>
-              <Link className="nav-link" to="/logout" onClick={logout}>
+              <Link className="nav-link" to="/" onClick={logout}>
                 Logga ut
               </Link>
               </div>
