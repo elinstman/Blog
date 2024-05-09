@@ -3,7 +3,10 @@ import BlogPosts from '../Components/BlogPost';
 import Navbar from '../Components/Navbar';
 
 
+
 const HomePage = () => {
+   
+
     return (
         <>
             <Header />
@@ -12,7 +15,7 @@ const HomePage = () => {
                 <BlogPosts />
                 </div>
                 <div className='col-md-4'> 
-                <Navbar />
+                <Navbar  />
                 </div>
             
             </main>

@@ -39,6 +39,10 @@
     gap: 1rem;
   }
 
+  .form-container p {
+    text-align: left;
+  }
+
   .blogsummary-input {
     height: 45px;
   }

@@ -88,7 +88,9 @@ useEffect(() => {
 
         {showCreatePost && (
          <div className="modal-dialog" >
-          <CreatePost setShowCreatePost={setShowCreatePost} createPostModalRef={createPostModalRef} />
+          <CreatePost 
+          setShowCreatePost={setShowCreatePost} 
+          createPostModalRef={createPostModalRef} />
           </div>
         )}
        

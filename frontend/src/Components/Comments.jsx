@@ -1,16 +1,16 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+import CreateComment from "./CreateComment";
 
 
 const Comments = ({ postId, formatDateTime }) => {
     const [comments, setComments] = useState([]);
-    // const postId = useParams().postId;
-    // const { postId } = useParams();
-    console.log("postId: ", postId)
+    const [verifiedUser, setVerifiedUser] = useState(false);
 
     useEffect(() => {
         fetchComments();
+        checkLoginStatus();
     }, [postId]);
 
     const fetchComments = async () => {
@@ -26,13 +26,17 @@ const Comments = ({ postId, formatDateTime }) => {
         }
     };
 
-
-    // const createdAt = new Date(post.createdAt); // Skapa ett nytt Date-objekt från post.createdAt
-    // const formattedDate = createdAt.toISOString().slice(0, 19).replace('T', ' '); // Formatera datumet
-
+    const checkLoginStatus = () => {
+        const userAccessToken = localStorage.getItem("accessToken");
+        if (userAccessToken) {
+            setVerifiedUser(true)
+        }
+    }
     
+    const addComment = (newComment) => {
+        setComments([...comments, newComment]); // Lägg till den nya kommentaren i kommentarlistan
+    };
    
-
 
     return (
         <>
@@ -50,7 +54,15 @@ const Comments = ({ postId, formatDateTime }) => {
             )
            
         })}
+
+        {!verifiedUser && (
+            <p>Du måste vara inloggad för att skriva en kommentar.</p>
+        )}
         </div>
+        {verifiedUser && (
+            <CreateComment postId={postId} addComment={addComment}/>
+        )}
+
         </>
     )
 }
