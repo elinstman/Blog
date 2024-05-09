@@ -62,7 +62,9 @@ const BlogPosts = () => {
                     <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
                     <div className='blogpost-info'>
                     <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
-                    <Link>Kommentarer</Link>
+                    <Link
+                    to={`/${post._id}/kommentarer`}
+                    >Kommentarer</Link>
                     </div>
                     <div className="blog-text-container"> 
                         <h4 className=''>{post.summary}</h4>
