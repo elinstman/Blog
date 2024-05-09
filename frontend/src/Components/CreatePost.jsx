@@ -71,7 +71,6 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
             // {title, summary, content, author });
             console.log("new blogpost ", res.data);
             setShowCreatePost(false);
-            addBlogpost(res.data);
             
   
       } catch (error) {
