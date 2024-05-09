@@ -1,14 +1,13 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../Context/auth.context";
 
-const CreateComment = ({ postId }) => {
+const CreateComment = ({ postId, addComment }) => {
     const { userId, userName }= useAuth();
-    console.log("postId: ", postId)
-    console.log("userId: ", userId)
-    // const postId = blogostId;
+    // console.log("postId: ", postId)
+    // console.log("userId och userName", userId, userName)
 
     const validationSchema = Yup.object({
         content: Yup.string()
@@ -35,9 +34,6 @@ const CreateComment = ({ postId }) => {
     })
 
     const userAccessToken = localStorage.getItem("accessToken");
-        if (!userAccessToken) {
-        Navigate("/login");
-        }
 
     const writeComment = async () => {
         try {
@@ -55,6 +51,7 @@ const CreateComment = ({ postId }) => {
                     'Authorization': `Bearer ${userAccessToken}`
                   }
             });
+            addComment(response.data);
             console.log("new comment ", response.data);
 
            
@@ -91,7 +88,7 @@ const CreateComment = ({ postId }) => {
                          </div>
                          ) : null}
              <div className="button-container">
-             <p className="user-comment-info">Inloggad som: @användare</p>
+             <p className="user-comment-info">Inloggad som: {userName}</p>
              <button 
              type="submit"
              onClick={formik.handleSubmit}

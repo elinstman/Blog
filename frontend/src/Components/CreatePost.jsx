@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Navigate } from "react-router-dom";
 
-const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
+const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
     const { userId, userName }= useAuth();
     // const { savedValues, setSavedValues } = useState();
     
@@ -71,6 +71,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
             // {title, summary, content, author });
             console.log("new blogpost ", res.data);
             setShowCreatePost(false);
+            addBlogpost(res.data);
             
   
       } catch (error) {

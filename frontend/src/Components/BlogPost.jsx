@@ -10,10 +10,10 @@ const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
     const [showEditBlogpost, setShowEditBlogpost] = useState(false);
     const [selectedPost, setSelectedPost] = useState(null);
-    // const [selectedPostId, setSelectedPostId] = useState(null);
     const editPostModalRef = useRef();
     const isVerified = useVerifiedLogin();
-    console.log("valda blogginlägget", selectedPost);
+    
+
 
 
     useEffect(() => {
@@ -59,17 +59,18 @@ const BlogPosts = () => {
 
         const handlePostClick = (postId) => {
             if (selectedPost === postId) {
-                setSelectedPost(null); // Stäng kommentarerna
+                setSelectedPost(null); 
             } else {
                 setSelectedPost(postId);
             }
         };
 
         const formatDateTime = (dateTimeString) => {
-            const createdAt = new Date(dateTimeString); // Skapa ett nytt Date-objekt från dateTimeString
-            const formattedDate = createdAt.toISOString().slice(0, 16).replace('T', ' '); // Formatera datumet
+            const createdAt = new Date(dateTimeString); 
+            const formattedDate = createdAt.toISOString().slice(0, 16).replace('T', ' '); 
             return formattedDate;
         };
+
 
     return (
         <> 
