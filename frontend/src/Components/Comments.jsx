@@ -1,12 +1,12 @@
 import axios from "axios";
-import Header from "./Header"
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const Comments = () => {
+
+const Comments = ({ postId }) => {
     const [comments, setComments] = useState([]);
     // const postId = useParams().postId;
-    const { postId } = useParams();
+    // const { postId } = useParams();
     console.log("postId: ", postId)
 
     useEffect(() => {
@@ -26,24 +26,31 @@ const Comments = () => {
         }
     };
 
+
+    const createdAt = new Date(post.createdAt); // Skapa ett nytt Date-objekt från post.createdAt
+    const formattedDate = createdAt.toISOString().slice(0, 19).replace('T', ' '); // Formatera datumet
+
     
    
 
 
     return (
         <>
-        <Header />
-        Kommentarer
+        <div className="comment-header">
+            <h4>Kommentarer</h4>
+            </div>
+        <div className="comments-list">
         {comments.map((comment) => {
             return (
-                <div key={comment._id}>
+                <div className="comment" key={comment._id}>
+                <p> Kommentar av:  @{comment.author.userName} den {comment.createdAt} </p>
                 <h6>{comment.content}</h6>
-                <p> {comment.author.userName} </p>
 
             </div>
             )
            
         })}
+        </div>
         </>
     )
 }
