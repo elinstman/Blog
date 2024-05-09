@@ -47,15 +47,6 @@ const EditPost = ({ toggleEditPostModal, editPostModalRef, fetchBlogPosts }) => 
                 console.error('Failed to fetch post:', response.statusText);
               }
 
-              
-
-            // setPost(response.data);
-            // setFormValues({
-            //     title: response.data.title,
-            //     summary: response.data.summary,
-            //     content: response.data.content,
-            //     id: response.data.id
-            // });
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 // Om användaren inte är auktoriserad
@@ -105,7 +96,7 @@ const EditPost = ({ toggleEditPostModal, editPostModalRef, fetchBlogPosts }) => 
     const userAccessToken = localStorage.getItem("accessToken");
     //   console.log("detta är accesstoken:", userAccessToken );
         if (!userAccessToken) {
-          Navigate("/login");
+          return <Navigate to={"/login"} />
         }
   
 

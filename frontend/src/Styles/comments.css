@@ -37,3 +37,13 @@
     color: #888;
     text-align: left;
 }
+
+
+.user-comment-info {
+    font-size: 9px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}

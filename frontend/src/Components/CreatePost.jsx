@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Context/auth.context";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { Navigate } from "react-router-dom";
 
 const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
     const { userId, userName }= useAuth();
@@ -46,7 +47,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef }) => {
   const userAccessToken = localStorage.getItem("accessToken");
 //   console.log("detta är accesstoken:", userAccessToken );
     if (!userAccessToken) {
-      navigate("/login");
+      Navigate("/login");
     }
   
 

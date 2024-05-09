@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import CreateComment from "./CreateComment";
 
 
 const Comments = ({ postId, formatDateTime }) => {
     const [comments, setComments] = useState([]);
-    // const postId = useParams().postId;
-    // const { postId } = useParams();
-    console.log("postId: ", postId)
 
     useEffect(() => {
         fetchComments();
@@ -25,14 +23,7 @@ const Comments = ({ postId, formatDateTime }) => {
             console.log("error meddelande", error)
         }
     };
-
-
-    // const createdAt = new Date(post.createdAt); // Skapa ett nytt Date-objekt från post.createdAt
-    // const formattedDate = createdAt.toISOString().slice(0, 19).replace('T', ' '); // Formatera datumet
-
-    
    
-
 
     return (
         <>
@@ -51,6 +42,7 @@ const Comments = ({ postId, formatDateTime }) => {
            
         })}
         </div>
+<CreateComment postId={postId} />
         </>
     )
 }
