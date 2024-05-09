@@ -16,14 +16,19 @@
     gap: 1.5rem;
 }
 
+/* .blog-post-container {
+    border: 1px solid #ddd;
+} */
+
 .border-bottom {
     padding-bottom: 10px;
 }
 
 .blogpost-info span {
-    margin-right: 10px; /* Lägger till högermarginal */
+    margin-right: 10px; 
 }
 
 .blogpost-info a {
-    margin-left: 10px; /* Lägger till vänstermarginal */
+    margin-left: 10px; 
+    cursor: pointer;
 }

@@ -2,6 +2,7 @@
 @import url("Styles/loginPage.css");
 @import url("Styles/blogpost.css");
 @import url("Styles/createpost.css");
+@import url("Styles/comments.css");
 
 #root {
   max-width: 1500px;

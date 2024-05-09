@@ -8,6 +8,7 @@ import './App.css'
 import { AuthProvider } from './Context/auth.context';
 import CreatepostPage from './Pages/CreatepostPage';
 import EditPost from './Components/EditPost';
+import Comments from './Components/Comments';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Route path='/logout' element={<LogoutPage />} />
       <Route path='/createpost' element={<CreatepostPage />} />
       <Route path='/:id' element={<EditPost />} />
+      <Route path='/:postId/kommentarer' element={<Comments />} />
     </Routes>
     </AuthProvider>
     </>

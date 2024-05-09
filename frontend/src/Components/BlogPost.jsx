@@ -3,13 +3,17 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import EditPost from './EditPost';
 import { useVerifiedLogin } from "../Context/auth.context";
+import Comments from './Comments';
 
 
 const BlogPosts = () => {
     const [blogPosts, setBlogPosts] = useState([]);
     const [showEditBlogpost, setShowEditBlogpost] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(null);
+    // const [selectedPostId, setSelectedPostId] = useState(null);
     const editPostModalRef = useRef();
     const isVerified = useVerifiedLogin();
+    console.log("valda blogginlägget", selectedPost);
 
 
     useEffect(() => {
@@ -53,6 +57,19 @@ const BlogPosts = () => {
         }, []);
 
 
+        const handlePostClick = (postId) => {
+            if (selectedPost === postId) {
+                setSelectedPost(null); // Stäng kommentarerna
+            } else {
+                setSelectedPost(postId);
+            }
+        };
+
+        const formatDateTime = (dateTimeString) => {
+            const createdAt = new Date(dateTimeString); // Skapa ett nytt Date-objekt från dateTimeString
+            const formattedDate = createdAt.toISOString().slice(0, 16).replace('T', ' '); // Formatera datumet
+            return formattedDate;
+        };
 
     return (
         <> 
@@ -62,7 +79,9 @@ const BlogPosts = () => {
                     <h2 className="border-bottom display-5 mb-1">{post.title}</h2>
                     <div className='blogpost-info'>
                     <span className="blog-post-meta">Skrivet av: {post.author.userName}</span>
-                    <Link>Kommentarer</Link>
+                
+                        <a onClick={() => handlePostClick(post._id)}>Kommentarer</a>
+                    
                     </div>
                     <div className="blog-text-container"> 
                         <h4 className=''>{post.summary}</h4>
@@ -70,7 +89,7 @@ const BlogPosts = () => {
                     <div className="blog-text-container ">
                         <p className='border-bottom'>{post.content}</p>
                         <div className='blogpost-info'> 
-                        <span>Publicerad: {post.createdAt}</span>
+                        <span>Publicerad: {formatDateTime(post.createdAt)}</span>
                         {isVerified && (
                             <Link
                         className=''
@@ -82,6 +101,13 @@ const BlogPosts = () => {
                         
                         </div>
                     </div>
+                    {selectedPost === post._id && (
+                        <div className='comments-container'>
+                        <Comments postId={post._id} formatDateTime={formatDateTime} />
+                        </div>
+                    )}
+
+                    
                     
                 </div>
                

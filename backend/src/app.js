@@ -3,6 +3,7 @@ const cors = require("cors");
 const { urlencoded } = require("express");
 const userRouter = require("../src/routes/user.route");
 const postsRouter = require("./routes/post.route");
+const commentsRouter = require("./routes/comment.route");
 
 const app = Express();
 
@@ -23,6 +24,7 @@ app.use(
 
 app.use(userRouter);
 app.use(postsRouter);
+app.use(commentsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
