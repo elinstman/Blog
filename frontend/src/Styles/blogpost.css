@@ -25,9 +25,10 @@
 }
 
 .blogpost-info span {
-    margin-right: 10px; /* Lägger till högermarginal */
+    margin-right: 10px; 
 }
 
 .blogpost-info a {
-    margin-left: 10px; /* Lägger till vänstermarginal */
+    margin-left: 10px; 
+    cursor: pointer;
 }

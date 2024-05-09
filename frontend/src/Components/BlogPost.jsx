@@ -65,6 +65,11 @@ const BlogPosts = () => {
             }
         };
 
+        const formatDateTime = (dateTimeString) => {
+            const createdAt = new Date(dateTimeString); // Skapa ett nytt Date-objekt från dateTimeString
+            const formattedDate = createdAt.toISOString().slice(0, 16).replace('T', ' '); // Formatera datumet
+            return formattedDate;
+        };
 
     return (
         <> 
@@ -84,7 +89,7 @@ const BlogPosts = () => {
                     <div className="blog-text-container ">
                         <p className='border-bottom'>{post.content}</p>
                         <div className='blogpost-info'> 
-                        <span>Publicerad: {post.createdAt}</span>
+                        <span>Publicerad: {formatDateTime(post.createdAt)}</span>
                         {isVerified && (
                             <Link
                         className=''
@@ -98,7 +103,7 @@ const BlogPosts = () => {
                     </div>
                     {selectedPost === post._id && (
                         <div className='comments-container'>
-                        <Comments postId={post._id} />
+                        <Comments postId={post._id} formatDateTime={formatDateTime} />
                         </div>
                     )}
 

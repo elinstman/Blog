@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 
-const Comments = ({ postId }) => {
+const Comments = ({ postId, formatDateTime }) => {
     const [comments, setComments] = useState([]);
     // const postId = useParams().postId;
     // const { postId } = useParams();
@@ -27,8 +27,8 @@ const Comments = ({ postId }) => {
     };
 
 
-    const createdAt = new Date(post.createdAt); // Skapa ett nytt Date-objekt från post.createdAt
-    const formattedDate = createdAt.toISOString().slice(0, 19).replace('T', ' '); // Formatera datumet
+    // const createdAt = new Date(post.createdAt); // Skapa ett nytt Date-objekt från post.createdAt
+    // const formattedDate = createdAt.toISOString().slice(0, 19).replace('T', ' '); // Formatera datumet
 
     
    
@@ -43,7 +43,7 @@ const Comments = ({ postId }) => {
         {comments.map((comment) => {
             return (
                 <div className="comment" key={comment._id}>
-                <p> Kommentar av:  @{comment.author.userName} den {comment.createdAt} </p>
+                <p> Kommentar av:  @{comment.author.userName} den {formatDateTime(comment.createdAt)} </p>
                 <h6>{comment.content}</h6>
 
             </div>
