@@ -45,7 +45,7 @@ useEffect(() => {
           <div className="header-container d-flex align-items-center justify-content-between ">
             <div className="logo">
               <Link to="/" className="logga">
-                <b>Elins Blog</b>
+                <b>BLOGGPLATSEN</b>
               </Link>
             </div>
         
@@ -70,7 +70,7 @@ useEffect(() => {
           <div className="header-container d-flex align-items-center justify-content-between ">
             <div className="logo">
               <Link to="/" className="logga">
-                <b>Elins Blog</b>
+                <b>BLOGGPLATSEN</b>
               </Link>
             </div>
         

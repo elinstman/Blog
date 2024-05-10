@@ -2,9 +2,11 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../Context/auth.context";
+import { useState } from "react";
 
 const CreateComment = ({ postId, addComment }) => {
     const { userId, userName }= useAuth();
+    const [userC, setUserC] = useState("")
 
     const validationSchema = Yup.object({
         content: Yup.string()
@@ -22,6 +24,7 @@ const CreateComment = ({ postId, addComment }) => {
        validationSchema: validationSchema,
 
        onSubmit: async (values, { setSubmitting, resetForm }) => {
+        setUserC(userName);
         setSubmitting(true)
        await writeComment(values);
        resetForm()

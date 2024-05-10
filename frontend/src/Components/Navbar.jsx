@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from "react";
+
 const Navbar = () => {
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -31,17 +32,20 @@ const latestBlogPosts = blogPosts.slice(0, 3);
           <h4 className="fst-italic">Recent posts</h4>
           <ul className="list-unstyled">
             {latestBlogPosts.map((latest) => (
-              <li key={latest._id}>
-            <a className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-            <svg className="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+              <li key={latest._id}>    
+            <div className="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+            <div>
+            <img 
+            aria-hidden="true"
+            className="bd-placeholder-img"
+            src="flower_beige.jpg" width="100%" height="100%" alt='Flower-picture' />
+             </div>
             <div className="col-lg-8">
-                    <h6 className="mb-0">{latest.title}</h6>
-                    <p>{latest.summary}</p>
-                    <small className="text-body-secondary">{new Date(latest.createdAt).toLocaleDateString()}</small>
+                    <h4 className="mb-0">{latest.title}</h4>
+                    <p  className="navbar-summary">{latest.summary}</p>
+                    <small className="text-body-secondary">Datum: {new Date(latest.createdAt).toLocaleDateString()}</small>
                   </div>
-                  </a>
-
-
+                  </div>
               </li>
             ))}
           </ul>
