@@ -11,6 +11,7 @@ const HomePage = () => {
         <>
             <Header />
             <main className='row g-5 main-container'>
+                
                 <div className='col-md-8 blogpost-container'>
                 <BlogPosts />
                 </div>

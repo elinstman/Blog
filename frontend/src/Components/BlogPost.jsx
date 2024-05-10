@@ -35,7 +35,6 @@ const BlogPosts = () => {
    
 
     const toggleEditPostModal = () => {
-        // setSelectedPostId();
         setShowEditBlogpost((prevState) => !prevState);
       };
 
