@@ -58,3 +58,9 @@
   .nav-link:hover {
     cursor: pointer;
   }
+
+  /* Meny till höger */
+
+  .navbar-summary {
+    text-align: left;
+  }
