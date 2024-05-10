@@ -1,13 +1,10 @@
 import axios from "axios";
-// import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../Context/auth.context";
 
 const CreateComment = ({ postId, addComment }) => {
     const { userId, userName }= useAuth();
-    // console.log("postId: ", postId)
-    // console.log("userId och userName", userId, userName)
 
     const validationSchema = Yup.object({
         content: Yup.string()

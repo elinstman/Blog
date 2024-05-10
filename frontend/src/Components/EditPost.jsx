@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Context/auth.context";
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
 import { useParams, Navigate, Link } from "react-router-dom";
 import Header from "./Header";
 import HomePage from "../Pages/HomePage";
@@ -138,7 +136,7 @@ const EditPost = ({ toggleEditPostModal, editPostModalRef, fetchBlogPosts }) => 
  <div className="popup-content" ref={editPostModalRef}>
  <div className="modal-header popup-header-container">
  <h2 className="modal-title">Redigera bloggpost</h2>
-<p className="lead">Beskrivande text för att redigera blogginlägg</p>
+<p className="lead">Uppdatera ditt blogginlägg här. Spara när du är klar. </p>
  </div>
  <div className="col-md-7 col-lg-8">
 
@@ -186,10 +184,13 @@ const EditPost = ({ toggleEditPostModal, editPostModalRef, fetchBlogPosts }) => 
      </div>
 
      <div>
+    
          <button
           className="w-60 btn-sm"
           type="submit"
           >Uppdatera blogginlägg</button>
+        
+           <p className="user-comment-info">Inloggad som: {userName}</p>
      </div>
      
      

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
 import CreateComment from "./CreateComment";
 
 
@@ -34,7 +33,7 @@ const Comments = ({ postId, formatDateTime }) => {
     }
     
     const addComment = (newComment) => {
-        setComments([...comments, newComment]); // Lägg till den nya kommentaren i kommentarlistan
+        setComments([...comments, newComment]);
     };
    
 

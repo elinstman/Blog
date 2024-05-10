@@ -5,9 +5,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Navigate } from "react-router-dom";
 
+
 const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
     const { userId, userName }= useAuth();
-    // const { savedValues, setSavedValues } = useState();
+    console.log(userName)
     
 
    const validationSchema = Yup.object({
@@ -45,7 +46,6 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
   })
 
   const userAccessToken = localStorage.getItem("accessToken");
-//   console.log("detta är accesstoken:", userAccessToken );
     if (!userAccessToken) {
       Navigate("/login");
     }
@@ -68,7 +68,6 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
                       'Authorization': `Bearer ${userAccessToken}`
                     }
             });
-            // {title, summary, content, author });
             console.log("new blogpost ", res.data);
             setShowCreatePost(false);
             
@@ -86,7 +85,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
             <div className="popup-content" ref={createPostModalRef}>
             <div className="modal-header popup-header-container">
             <h2 className="modal-title">Skapa inlägg</h2>
-        <p className="lead">Beskrivande text för att skapa blogginlägg</p>
+        <p className="lead">Ditt användarnamn kommer synas vid ditt blogginlägg. </p>
             </div>
        
         
@@ -162,6 +161,7 @@ const CreatePost = ({ setShowCreatePost, createPostModalRef, addBlogpost }) => {
                      onClick={formik.handleSubmit}
                      disabled={formik.isSubmitting}
                      >Spara blogginlägg</button>
+                      <p className="user-comment-info">Inloggad som: {userName}</p>
                 </div>
                 
                 
